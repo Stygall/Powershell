@@ -150,13 +150,8 @@ function Write-Log
 }
 
 #---------------------------------------------------------[ Initialisations ]--------------------------------------------------------
-#Start-Sleep -Seconds 10
-#Remove-Item D:\LOGS\stater\Acceptatie - azure.old
-#Rename-Item -Path "D:\LOGS\stater\Acceptatie - azure.log" -NewName "D:\LOGS\stater\Acceptatie - azure.old"
-
 $Now = get-date -format "ddMMyyyy"
 Start-Transcript -Path "D:\LOGS\stater\$now azure acceptatie.log" -Append -Force
-#Start-Transcript -Path "D:\LOGS\stater\Acceptatie - azure.log" -Append -Force
 
 $env:path+=';C:\Program Files (x86)\Microsoft SDKs\Azure\AzCopy'
 $User = "SVC-OBV-SCR-ST-A"
@@ -173,11 +168,6 @@ $Destdrivepath2 = '\\obv-box-ftp01-A\SFTP_Data$\DWH\Stater\ACC\tmn'
 $blobstore1 = 'https://obvsa00007.blob.core.windows.net/obvionblob/ObvionSftp/Stater/Obvion Datawarehouse/ACC/shs/'
 $blobstore2 = 'https://obvsa00007.blob.core.windows.net/obvionblob/ObvionSftp/Stater/Obvion Datawarehouse/ACC/tmn/'
 $blobkey = ""
-
-#$RobocopyLogPath1 = "D:\LOGS\stater\$Now Acceptatie DWH-SHS.log"
-#$RobocopyLogPath2 = "D:\LOGS\stater\$Now Acceptatie DWH-TMN.log"
-
-# $blobkey = $(Import-Clixml 'D:\SCRIPTS\SCHEDULED_SCRIPTS\Stater - Azure (ACC)\AZBlobCred_sa00007_Encrypted.xml').GetNetworkCredential().password
 
 $scripttemp = 'D:\SCRIPTS\SCHEDULED_SCRIPTS\Stater - Azure (ACC)\temp\'
 $COPYFAILED = $FALSE
@@ -216,20 +206,11 @@ New-PSDrive -Name 'W' -PSProvider FileSystem -Root $Destdrivepath1 -Credential $
 New-PSDrive -Name 'X' -PSProvider FileSystem -Root $Srcdrivepath2 -Credential $MyCredential
 New-PSDrive -Name 'Y' -PSProvider FileSystem -Root $Destdrivepath2 -Credential $MyCredential
 
-#Write-Log -Message "Start Robocopy SHS to Inergy DWH - SHS" -Path $Logpath -Level Info
-#robocopy $Srcdrivepath1 $Destdrivepath1 *.zip /MOV /S /COPY:DAT /MT:8 /R:1 /W:10 /NP /NS /NC /xx /LOG+:$RobocopyLogPath1
-#Write-Log -Message "Robocopy SHS to Inergy DWH - SHS finished" -Path $Logpath -Level Info
-
-#Write-Log -Message "Start Robocopy TMN to Inergy DWH - TMN" -Path $Logpath -Level Info
-#robocopy $Srcdrivepath2 $Destdrivepath2 *.zip /MOV /S /COPY:DAT /MT:8 /R:1 /W:10 /NP /NS /NC /xx /LOG+:$RobocopyLogPath2
-#Write-Log -Message "Robocopy TMN to Inergy DWH - TMN finished" -Path $Logpath -Level Info
-
 Write-Log -Message "Start Copy for SHS" -Path $Logpath -Level Info
 Write-Log -Message "Searching $Srcdrivepath1 for files" -Path $Logpath -Level Info
 
 $items2copy = Get-childItem -path "V:\" -File  -filter "*.zip"|
         select name,fullname,basename
-        # @{n='HASH';e={Get-FileHash -Path $_.fullname -Algorithm SHA256|select -ExpandProperty hash }}
 
 $itemcount = $items2copy|measure -Property name|select -ExpandProperty count
 
@@ -338,62 +319,6 @@ IF ($itemcount -gt 0 ){
         $COPYFAILED = $TRUE
         }
 
-<#
-
-#Fetch storageaccountkey from Keyvault
-  # Connect to keyvault
- Write-Log -Message "Getting StorageAccount key" -Path $Logpath -Level Info
- connect-AzureRMAccount -ApplicationId $applicationId -TenantId $tenantId -ServicePrincipal -CertificateThumbprint $certThumbprint
-  #get Secrets in Hash table
- $Secrets=(Get-AzureKeyVaultSecret -Name $storageAccountName -VaultName $keyVaultName).SecretValueText.split(";")|ConvertFrom-Stringdata
-  #get storagekey from hashtable
- $SaName = $Secrets.AccountName
- $blobkey = $Secrets.accountkey
- $Secrets=$null
- 
- IF($blobkey -ne ""){
-    Write-Log -Message "Retrieved StorageAccount key for $SaName" -Path $Logpath -Level Info
-    } ELSE {
-    Write-Log -Message "Error fetching StorageAccount key: $Error[0]" -Path $Logpath -Level WARN
-    Write-Log -Message "Failed to get Secrets from Azure keyvault retry next run" -level WARN
-    $retry = 0
-    $COPYFAILED = $TRUE
-    }
-
-    While($retry -ge 1 -and !(test-path $AZdonefile)){        
-        
-        $file2copy = $sourcefile.name
-         Write-Log -Message "Copy $file2copy to azure" -Path $Logpath -Level Info
-         Write-Log -Message "See $AzLogpath for AZCcopy log" -Path $Logpath -Level Info
-
-        AzCopy.exe /SOURCE:$Srcdrivepath1 /Dest:$blobstore1 /Destkey:$blobkey /Pattern:$file2copy /Y /V:$AzLogpath   
-        AzCopy.exe /SOURCE:$blobstore1 /Sourcekey:$blobkey /Dest:$Scripttemp /Pattern:$file2copy /Y /NC:2 /V:$AzLogpath 
-
-        $File2Check = $scripttemp  + $file2copy
-        
-        Write-Log -Message "Copy to Azure finished, Checking File Checksum" -Path $Logpath -Level Info
-
-        $CheckHash2 = Get-FileHash -Path $File2Check -Algorithm SHA256|select -ExpandProperty hash
-        Write-Log -Message "Checksum Destination file: $CheckHash2" -Path $Logpath -Level Info
-        IF($CheckHash2 -eq $sourcehash){
-            Write-Log -Message "Copy to Azure was succesfull File Checksum Matched Source" -Path $Logpath -Level Info
-            IF(!(test-path $AZdonefile)){new-item -Path $AZdonefile -ItemType File -Force}        
-            $retry = 0       
-        } ELSE { 
-            $retry++ 
-            Write-Log -Message "Copy to Azure failed File with Checksum Mismatch error Retrying Copy" -Path $Logpath -Level Warn
-            }
-
-        IF($retry -gt 3) {
-            $retry =0
-            Write-Log -Message "Copy TO Azure failed File Checksum Mismatch even after retry" -Path $Logpath -Level Warn
-            Write-Log -Message "Source Hash: $Sourcehash" -Path $Logpath -Level Error
-            Write-Log -Message "Destination Hash: $CheckHash2" -Path $Logpath -Level Error
-            $COPYFAILED = $TRUE
-            }
-            }
-
-#>
             
         IF ($COPYFAILED -eq $False){
                 Write-Log -Message "Both Copies succesfull, Starting cleanup" -Path $Logpath -Level Info
@@ -455,8 +380,6 @@ IF(test-path "X:\*.flag"){
     @{n='filename';e={$_.basename +".zip" }},
     @{n='fullname';e={"X:\"+$_.basename + ".zip"}},
     @{n='HASH';e={Get-FileHash -Path $("X:\" +$_.basename +".zip") -Algorithm SHA256|select -ExpandProperty hash }}
-   
-   
 
     $Filecount = $items2copy|measure -Property basename |Select -expandproperty count
 
@@ -481,9 +404,6 @@ IF(test-path "X:\*.flag"){
         Write-Log -Message "$hashfile Not found, trying to calculate hash from sourcefile directly" -Path $Logpath -Level Warn
         $Sourcehash = Get-FileHash -Path $item.fullname|select -ExpandProperty hash 
     }
-     
-
-     # IF ( $($item|select -expandproperty hash).length -le 1 ) {$item.hash = $(Get-FileHash -Path $($Srcdrivepath2 +"\" +$item.filename) -Algorithm SHA256|select -ExpandProperty hash) }
     
     
     IF(!(test-path $($item.fullname))){
@@ -565,93 +485,6 @@ IF(test-path "X:\*.flag"){
         $retry = 0
         $COPYFAILED = $TRUE 
         }
-<#
-
-    IF ($sourcehash.length -le 10){
-        Write-Log -Message $("Failed to find Checksum for Sourcefile {0} retry AZCopy next run" -f$($item|select -expandproperty fullname)) -Path $Logpath -Level Info
-        $retry = 0 
-        $COPYFAILED = $TRUE
-        }
-
-#Fetch storageaccountkey from Keyvault
-  # Connect to keyvault
- Write-Log -Message "Getting StorageAccount key" -Path $Logpath -Level Info
- connect-AzureRMAccount -ApplicationId $applicationId -TenantId $tenantId -ServicePrincipal -CertificateThumbprint $certThumbprint
-  #get Secrets in Hash table
- $Secrets=(Get-AzureKeyVaultSecret -Name $storageAccountName -VaultName $keyVaultName).SecretValueText.split(";")|ConvertFrom-Stringdata
-  #get storagekey from hashtable
- $SaName = $Secrets.AccountName
- $blobkey = $Secrets.accountkey
- $Secrets=$null
- 
- IF($blobkey -ne ""){
-    Write-Log -Message "Retrieved StorageAccount key for $SaName" -Path $Logpath -Level Info
-    } ELSE {
-    Write-Log -Message "Error fetching StorageAccount key: $Error[0]" -Path $Logpath -Level WARN
-    Write-Log -Message "Failed to get Secrets from Azure keyvault retry next run" -level WARN
-    $retry = 0
-    $COPYFAILED = $TRUE
-    }
-
-    IF ($retry -ge 1){
-            Write-Log -Message "Start Copy to Azure" -Path $Logpath -Level Info
-            Write-Log -Message $("Name: {0}" -f $($item|select -expandproperty fullname)) -Path $Logpath -Level Info
-            Write-Log -Message $("Checksum: {0}" -f $Sourcehash) -Path $Logpath -Level Info
-      }ELSE{Write-Log -Message "Pre-Check failed, skipping Copy to Azure" -Path $Logpath -Level WARN}
-
-    
-   IF (test-path $AZdonefile) {
-            Write-Log -Message "Copy to Azure already succesfuly completed, skipping Azure copy" -Path $Logpath -Level info
-            $retry = 0
-            IF (test-path $INdonefile) {$COPYFAILED = $FALSE} # Both Copies already succeded so any errors can be ignored
-       }
-    
-    
-   While($retry -ge 1){        
-        $failedhash = ""
-        $file2copy = $item.filename
-         Write-Log -Message "Copy $file2copy to azure" -Path $Logpath -Level Info
-         Write-Log -Message "See $AzLogpath for AZCcopy log" -Path $Logpath -Level Info
-
-        AzCopy.exe /SOURCE:$Srcdrivepath2 /Dest:$blobstore2 /Destkey:$blobkey /Pattern:$file2copy /Y /V:$AzLogpath
-   
-        AzCopy.exe /SOURCE:$blobstore2 /Sourcekey:$blobkey /Dest:$Scripttemp /Pattern:$file2copy /Y /NC:2 /V:$AzLogpath 
-       
-
-        $File2Check = $scripttemp  + $file2copy
-        
-        Write-Log -Message "Copy to Azure finished, Checking File Checksum" -Path $Logpath -Level Info
-
-        $CheckHash2 = Get-FileHash -Path $File2Check -Algorithm SHA256|select -ExpandProperty hash
-        Write-Log -Message "Checksum Destination file: $CheckHash2" -Path $Logpath -Level Info
-        IF($CheckHash2 -eq $sourcehash){
-            Write-Log -Message "Copy to Azure sa00007 was succesfull File Checksum Matched Source" -Path $Logpath -Level Info
-            } ELSE { 
-            Write-Log -Message "Copy to Azure sa00007 failed File with Checksum Mismatch error Retrying Copy" -Path $Logpath -Level Warn
-            $failedhash = $CheckHash2
-            $AZlocation = 'sa00007'
-            }
-
-           
-            IF($failedhash -ne ""){
-                Write-Log -Message "Attempt $retry " -Path $Logpath -Level Warn
-                $retry ++
-                
-            }ELSE{
-                IF(!(test-path $AZdonefile)){new-item -Path $AZdonefile -ItemType File -Force}
-                $retry = 0
-            }
-
-
-        IF($retry -gt 3) {
-            $retry =0
-            Write-Log -Message "Copy TO Azure location $AZloation failed. File Checksum Mismatch even after multiple attempts" -Path $Logpath -Level Warn
-            Write-Log -Message "Source Hash: $Sourcehash" -Path $Logpath -Level Error
-            Write-Log -Message "Destination Hash: $failedhash" -Path $Logpath -Level Error
-            $COPYFAILED = $TRUE
-            }
-#>
-
  }
             
         IF ($COPYFAILED -eq $False){
@@ -704,16 +537,3 @@ Remove-PSDrive -Name 'X' -PSProvider FileSystem -Force
 Remove-PSDrive -Name 'Y' -PSProvider FileSystem -Force
 
 stop-transcript
-
-
-<#
-[int]$Failed = $Result[5].Split(“:”)[1].Trim() 
-$Journal = “$env:LocalAppData\Microsoft\Azure\AzCopy” 
-$i=1 
-while ($Failed -gt 0) {
-     $i++ 
-     [int]$Failed = $Result[5].Split(“:”)[1].Trim() 
-     $Result = .\AzCopy.exe /Z:$Journal 
-     $Result 
-     $i }
-#>

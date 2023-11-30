@@ -1,0 +1,11 @@
+{
+    "DestinationFlag"           :   true,
+    "LogPath"                   :   "./Output/Log.txt",
+    "TranscriptPath"            :   "./Output/Transcript.txt",
+    "TestSourcePath"            :   "../Source/Test/*",
+    "TestDestinationPathA"      :   "../Destination/A/Test/",
+    "TestDestinationPathB"      :   "../Destination/B/Test/",
+    "TestFlagSourcePath"        :   "../Source/FlagTest/*",
+    "TestFlagDestinationPathA"  :   "../Destination/A/FlagTest/",
+    "TestFlagDestinationPathB"  :   "../Destination/B/FlagTest/"
+}

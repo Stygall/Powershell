@@ -1,0 +1,111 @@
+Initiated new log file
+11/30/2023 12:26:56
+Script initiated...
+Initiate Test Module
+Source files not found...     
+Cancelling module operation..
+Initiate Flag Test Module
+Flag files not found...     
+Cancelling module operation..
+Script finished 
+11/30/2023 12:26:56
+11/30/2023 12:27:33
+Script initiated...
+Initiate Test Module
+Trying to copy all files from source ../Source/Test/* to Destinations ../Destination/A/Test/ ../Destination/B/Test/
+Finished Copying from ../Source/Test/* towards ../Destination/A/Test/! 
+Initialising MD5 security check
+MD5 security check successful! 
+Now starting the removal of source files
+Finished Copying from ../Source/Test/* towards ../Destination/B/Test/! 
+Initialising MD5 security check
+MD5 security check successful! 
+Now starting the removal of source files
+Cleanup successful! 
+Module Complete
+Initiate Flag Test Module
+Trying to copy all files from source ../Source/FlagTest/* to Destinations ../Destination/A/FlagTest/ ../Destination/B/FlagTest/
+Finished Copying from ../Source/FlagTest/* towards ../Destination/A/FlagTest/! 
+Initialising MD5 security check
+MD5 security check successful! 
+Now starting the removal of source files
+Finished Copying from ../Source/FlagTest/* towards ../Destination/B/FlagTest/! 
+Initialising MD5 security check
+MD5 security check successful! 
+Now starting the removal of source files
+File removal successful! 
+Now starting the removal of flags
+Cleanup successful! 
+Module Complete
+Script finished 
+11/30/2023 12:27:33
+11/30/2023 12:28:01
+Script initiated...
+Initiate Test Module
+Source files not found...     
+Cancelling module operation..
+Initiate Flag Test Module
+Flag files not found...     
+Cancelling module operation..
+Script finished 
+11/30/2023 12:28:01
+11/30/2023 12:30:53
+Script initiated...
+Initiate Test Module
+Trying to copy all files from source ../Source/Test/* to Destinations ../Destination/A/Test/ ../Destination/B/Test/
+Finished Copying from ../Source/Test/* towards ../Destination/A/Test/! 
+Initialising MD5 security check
+MD5 security check successful! 
+Now starting the removal of source files
+Finished Copying from ../Source/Test/* towards ../Destination/B/Test/! 
+Initialising MD5 security check
+MD5 security check successful! 
+Now starting the removal of source files
+Cleanup successful! 
+Module Complete
+Initiate Flag Test Module
+Trying to copy all files from source ../Source/FlagTest/* to Destinations ../Destination/A/FlagTest/ ../Destination/B/FlagTest/
+Finished Copying from ../Source/FlagTest/* towards ../Destination/A/FlagTest/! 
+Initialising MD5 security check
+MD5 security check successful! 
+Now starting the removal of source files
+Finished Copying from ../Source/FlagTest/* towards ../Destination/B/FlagTest/! 
+Initialising MD5 security check
+MD5 security check successful! 
+Now starting the removal of source files
+File removal successful! 
+Now starting the removal of flags
+Cleanup successful! 
+Module Complete
+Script finished 
+11/30/2023 12:30:53
+11/30/2023 12:46:38
+Script initiated...
+Initiate Test Module
+Trying to copy all files from source ../Source/Test/* to Destinations ../Destination/A/Test/ ../Destination/B/Test/
+Finished Copying from ../Source/Test/* towards ../Destination/A/Test/ 
+Initialising MD5 security check
+MD5 security check successful! 
+Now starting the removal of source files
+Finished Copying from ../Source/Test/* towards ../Destination/B/Test/ 
+Initialising MD5 security check
+MD5 security check successful! 
+Now starting the removal of source files
+Cleanup successful! 
+Module Complete
+Initiate Flag Test Module
+Trying to copy all files from source ../Source/FlagTest/* to Destinations ../Destination/A/FlagTest/ ../Destination/B/FlagTest/
+Finished Copying from ../Source/FlagTest/* towards ../Destination/A/FlagTest/ 
+Initialising MD5 security check
+MD5 security check successful! 
+Now starting the removal of source files
+Finished Copying from ../Source/FlagTest/* towards ../Destination/B/FlagTest/ 
+Initialising MD5 security check
+MD5 security check successful! 
+Now starting the removal of source files
+File removal successful! 
+Now starting the removal of flags
+Cleanup successful! 
+Module Complete
+Script finished 
+11/30/2023 12:46:38

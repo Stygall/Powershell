@@ -1,0 +1,53 @@
+Initiated new log file
+
+12/5/2023 2:36:21 PM: Script initiated...
+12/5/2023 2:36:21 PM: Initiate Test Module
+12/5/2023 2:36:21 PM: Trying to copy all files from source ../Source/Test/* to Destinations ../Destination/A/Test/ ../Destination/B/Test/
+12/5/2023 2:36:21 PM: Finished Copying from ../Source/Test/* towards ../Destination/A/Test/ 
+12/5/2023 2:36:21 PM: Initialising MD5 security check
+12/5/2023 2:36:21 PM: MD5 security check successful! 
+12/5/2023 2:36:21 PM: Now starting the removal of source files
+12/5/2023 2:36:21 PM: Finished Copying from ../Source/Test/* towards ../Destination/B/Test/ 
+12/5/2023 2:36:21 PM: Initialising MD5 security check
+12/5/2023 2:36:21 PM: MD5 security check successful! 
+12/5/2023 2:36:21 PM: Now starting the removal of source files
+12/5/2023 2:36:21 PM: Now starting the removal of corrupt files
+12/5/2023 2:36:21 PM: Cleanup successful! 
+12/5/2023 2:36:21 PM: Module Complete
+12/5/2023 2:36:21 PM: Initiate Flag Test Module
+12/5/2023 2:36:21 PM: Trying to copy all files from source ../Source/FlagTest/* to Destinations ../Destination/A/FlagTest/ ../Destination/B/FlagTest/
+12/5/2023 2:36:27 PM: Finished Copying from ../Source/FlagTest/* towards ../Destination/A/FlagTest/ 
+12/5/2023 2:36:27 PM: Initialising MD5 security check
+12/5/2023 2:36:55 PM: MD5 security check successful! 
+12/5/2023 2:36:55 PM: Now starting the removal of source files
+12/5/2023 2:37:01 PM: Finished Copying from ../Source/FlagTest/* towards ../Destination/B/FlagTest/ 
+12/5/2023 2:37:01 PM: Initialising MD5 security check
+12/5/2023 2:37:30 PM: MD5 security check successful! 
+12/5/2023 2:37:30 PM: Now starting the removal of source files
+12/5/2023 2:37:30 PM: Now starting the removal of corrupt files
+12/5/2023 2:37:30 PM: Cleanup successful! 
+12/5/2023 2:37:30 PM: Module Complete
+12/5/2023 2:37:30 PM: Initiate Multi Test Module
+12/5/2023 2:37:30 PM: Trying to copy all files from source ../Source/MultiTest/B/ to Destinations ../Destination/A/MultiTest/ ../Destination/B/MultiTest/
+12/5/2023 2:37:30 PM: Finished Copying from ../Source/MultiTest/A/ towards ../Destination/A/MultiTest/ 
+12/5/2023 2:37:30 PM: Initialising MD5 security check
+12/5/2023 2:37:30 PM: MD5 security check successful! 
+12/5/2023 2:37:30 PM: Now starting the removal of source files
+12/5/2023 2:37:30 PM: Finished Copying from ../Source/MultiTest/A/ towards ../Destination/B/MultiTest/ 
+12/5/2023 2:37:30 PM: Initialising MD5 security check
+12/5/2023 2:37:30 PM: MD5 security check successful! 
+12/5/2023 2:37:30 PM: Now starting the removal of source files
+12/5/2023 2:37:30 PM: Now starting the removal of corrupt files
+12/5/2023 2:37:30 PM: Finished Copying from ../Source/MultiTest/B/ towards ../Destination/A/MultiTest/ 
+12/5/2023 2:37:30 PM: Initialising MD5 security check
+12/5/2023 2:37:30 PM: MD5 security check successful! 
+12/5/2023 2:37:30 PM: Now starting the removal of source files
+12/5/2023 2:37:30 PM: Finished Copying from ../Source/MultiTest/B/ towards ../Destination/B/MultiTest/ 
+12/5/2023 2:37:30 PM: Initialising MD5 security check
+12/5/2023 2:37:30 PM: MD5 security check successful! 
+12/5/2023 2:37:30 PM: Now starting the removal of source files
+12/5/2023 2:37:30 PM: Now starting the removal of corrupt files
+12/5/2023 2:37:30 PM: Cleanup successful! 
+12/5/2023 2:37:30 PM: Module Complete
+12/5/2023 2:37:30 PM: Script finished 
+

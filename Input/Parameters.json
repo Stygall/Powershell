@@ -1,0 +1,14 @@
+{
+    "LogPath"                   :   "./Output/Log.txt",
+    "TranscriptPath"            :   "./Output/Transcript.txt",
+    "TestSourcePath"            :   "../Source/Test/*",
+    "TestDestinationPathA"      :   "../Destination/A/Test/",
+    "TestDestinationPathB"      :   "../Destination/B/Test/",
+    "FlagSourcePath"            :   "../Source/FlagTest/*",
+    "FlagDestinationPathA"      :   "../Destination/A/FlagTest/",
+    "FlagDestinationPathB"      :   "../Destination/B/FlagTest/",
+    "MultiSourcePathA"          :   "../Source/MultiTest/A/",
+    "MultiSourcePathB"          :   "../Source/MultiTest/B/",
+    "MultiDestinationPathA"     :   "../Destination/A/MultiTest/",
+    "MultiDestinationPathB"     :   "../Destination/B/MultiTest/"
+}

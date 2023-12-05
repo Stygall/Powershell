@@ -1,0 +1,33 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20231205143621
+Username: AzureAD\DaveWolfs
+RunAs User: AzureAD\DaveWolfs
+Configuration Name: 
+Machine: ITLT-PF4JJSRA (Microsoft Windows NT 10.0.22621.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noexit -command try { . "c:\Users\DaveWolfs\AppData\Local\Programs\Microsoft VS Code\resources\app\out\vs\workbench\contrib\terminal\browser\media\shellIntegration.ps1" } catch {}
+Process ID: 32628
+PSVersion: 5.1.22621.2506
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.22621.2506
+BuildVersion: 10.0.22621.2506
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is ./Output/Transcript.txt
+
+
+    Directory: C:\Users\DaveWolfs\Documents\Scripting\Powershell\DWHLiftNShiftACC\Output
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----         12/5/2023   2:36 PM              0 Log.txt
+./Output/Log.txt
+PS>TerminatingError(ForEach-Object): "Exception calling "ReadAllBytes" with "1" argument(s): "The file is too long. This operation is currently limited to supporting files less than 2 gigabytes in size.""
+PS>TerminatingError(ForEach-Object): "Exception calling "ReadAllBytes" with "1" argument(s): "The file is too long. This operation is currently limited to supporting files less than 2 gigabytes in size.""
+
+
+]633;E;./main-acc.ps1;f002c95e-a87e-4064-a5aa-a6c7b256d7cc]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cDaveWolfs\x5cDocuments\x5cScripting\x5cPowershell\x5cDWHLiftNShiftACCPS C:\Users\DaveWolfs\Documents\Scripting\Powershell\DWHLiftNShiftACC> ]633;B

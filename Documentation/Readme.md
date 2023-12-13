@@ -1,8 +1,6 @@
-# DWH Lift & Shift
+# Lift & Shift
 
-DWH Lift & Shift is a script that is used to transfer files between two or more locations on the obvion DC servers. It is a new script that has been created to replace the scripting made by Centric. The script also contains a boolean flag at the top which is used to switch between allowing the legacy destinations or not.
 
-The script runs periodically; every 20 minutes from 6:55 untill 19:55.
 
 ### When the script is triggered it will do the following steps:
 
